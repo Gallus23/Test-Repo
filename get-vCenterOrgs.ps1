@@ -1,6 +1,8 @@
 ﻿Add-PSSnapin VMware.VimAutomation.Core
 Add-PSSnapin vmware.vimautomation.cloud
 
+#this is a changes
+
 $VCUsername = "astepga"
 $VCPassword = "Bluealert1981_"
 $VCoutputfile = "D:\Software\Scripts\temp_vcenter_orgs.csv"
@@ -28,7 +30,7 @@ ForEach ($org in $orgArray)
         $vdcName = $vdc.Split()
 
         #Write-Host "Listing vApps for vDC " $vdcName[0]
-        
+
         $vAppArray = Get-Folder -Location $vdc -NoRecursion -Type VM | Select -ExpandProperty Name
 
         ForEach ($vApp in $vAppArray)
@@ -39,9 +41,9 @@ ForEach ($org in $orgArray)
             $vmArray = Get-VM -Location $vApp | Select -ExpandProperty Name
 
             ForEach ($vm in $vmArray)
-            {            
+            {
                 $vmName = $vm.Split()
-              
+
                 $csvstring = $orgName[0] + "," + $vdcName[0] + "," + $vAppName[0] + "," + $vmName[0]
                 Write-Host "Writing: " $csvstring
                 Out-File -FilePath $VCoutputfile -Append -inputobject $csvstring -encoding ASCII
